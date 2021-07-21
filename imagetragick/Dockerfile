@@ -10,6 +10,7 @@ RUN         yum install python-pip3 python3 nmap-ncat -y
 COPY ImageMagick-6.9.1-10.tar.gz ImageMagick-6.9.1-10.tar.gz
 RUN tar -xvzf ImageMagick-6.9.1-10.tar.gz
 RUN cd ImageMagick-6.9.1-10 && ./configure && make && make install
+RUN yum install ImageMagick-devel -y
 
 ADD	    proof.txt /root/proof.txt
 COPY        ./app /app
