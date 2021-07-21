@@ -11,6 +11,7 @@ COPY ImageMagick-6.9.1-10.tar.gz ImageMagick-6.9.1-10.tar.gz
 RUN tar -xvzf ImageMagick-6.9.1-10.tar.gz
 RUN cd ImageMagick-6.9.1-10 && ./configure && make && make install
 RUN yum install ImageMagick-devel -y
+RUN pip3 install git+https://github.com/maxcountryman/flask-uploads.git
 
 ADD	    proof.txt /root/proof.txt
 COPY        ./app /app
