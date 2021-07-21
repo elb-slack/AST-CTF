@@ -3,8 +3,13 @@ MAINTAINER  SEC
 
 # Install packages
 RUN         yum install epel-release -y
-RUN         yum install python-pip3 python3 ImageMagick-6.7.8.9-10.el7 nmap-ncat -y
-RUN python3 --version
+RUN yum groupinstall "Development Tools" -y
+RUN         yum install python-pip3 python3 nmap-ncat -y
+
+
+COPY ImageMagick-6.9.1-10.tar.gz ImageMagick-6.9.1-10.tar.gz
+RUN tar -xvzf ImageMagick-6.9.1-10.tar.gz
+RUN cd ImageMagick-6.9.1-10 && ./configure && make && make install
 
 ADD	    proof.txt /root/proof.txt
 COPY        ./app /app
@@ -15,4 +20,4 @@ RUN         pip3 install -r requirements.txt
 
 EXPOSE      8080
 
-CMD         python app.py
+
