@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request, redirect, url_for
 from wand.image import Image
-from werkzeug import secure_filename
+import time
 
 UPLOAD_FOLDER = './uploads/'
 CONVERTED_FOLDER = './converted/'
@@ -22,11 +22,11 @@ def upload_file():
     if request.method == 'POST':
         file = request.files['file']
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename = f"{time.ctime()}"
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with Image(filename=os.path.join(app.config['UPLOAD_FOLDER'], filename)) as img:
-                img.format = 'jpeg'
-                img.save(filename=os.path.join(app.config['CONVERTED_FOLDER'], filename + '.jpg'))
+                img.format = 'png'
+                img.save(filename=os.path.join(app.config['CONVERTED_FOLDER'], filename + '.png'))
             return redirect(url_for('upload_file'))
 
     return '''
